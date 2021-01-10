@@ -2,24 +2,167 @@ import React from 'react'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Image, Dimensions} from 'react-native'
 import color from '../../constants/color'
 import size from '../../constants/size'
+import HeaderComponent from '../../components/HeaderComponent'
 
 const width = Dimensions.get('screen').width
 const catArr = [
   {
     image: require('../../../assets/coffee_cup.png'),
-    title: 'Coffee'
+    title: 'Coffee',
+    prodList: [
+      {
+      name: "COFFEE One",
+      price: 20,
+      detailDesc: "something paragraph"
+    },
+    {
+      name: "COFFEE Tow",
+      price: 20
+    },
+    {
+      name: "COFFEE One",
+      price: 20
+    },
+    {
+      name: "COFFEE One",
+      price: 20
+    },
+    {
+      name: "COFFEE One",
+      price: 20
+    },
+    {
+      name: "COFFEE One",
+      price: 20
+    },
+    {
+      name: "COFFEE One",
+      price: 20
+    },
+    {
+      name: "COFFEE One",
+      price: 20
+    }
+    ]
+
   },
   {
     image: require('../../../assets/burger.png'),
-    title: 'Coffee'
+    title: 'Burger',
+    prodList: [
+      {
+      name: "Burger One",
+      price: 20,
+      detailDesc: "something paragraph"
+    },
+    {
+      name: "Burger Tow",
+      price: 20
+    },
+    {
+      name: "Burger One",
+      price: 20
+    },
+    {
+      name: "Burger One",
+      price: 20
+    },
+    {
+      name: "Burger One",
+      price: 20
+    },
+    {
+      name: "Burger One",
+      price: 20
+    },
+    {
+      name: "Burger One",
+      price: 20
+    },
+    {
+      name: "Burger One",
+      price: 20
+    }
+    ]
+    
   },
   {
     image: require('../../../assets/fries.png'),
-    title: 'Coffee'
+    title: 'Fires',
+    prodList: [
+      {
+      name: "Fries One",
+      price: 20,
+      detailDesc: "something paragraph"
+    },
+    {
+      name: "Fries Tow",
+      price: 20
+    },
+    {
+      name: "Fries One",
+      price: 20
+    },
+    {
+      name: "Fries One",
+      price: 20
+    },
+    {
+      name: "Fries One",
+      price: 20
+    },
+    {
+      name: "Fries One",
+      price: 20
+    },
+    {
+      name: "Fries One",
+      price: 20
+    },
+    {
+      name: "COFFEE One",
+      price: 20
+    }
+    ]
   },
   {
     image: require('../../../assets/cake.png'),
-    title: 'Coffee'
+    title: 'Cakes',
+    prodList: [
+      {
+      name: "Cake One",
+      price: 20,
+      detailDesc: "something paragraph"
+    },
+    {
+      name: "Cake Tow",
+      price: 20
+    },
+    {
+      name: "Cake One",
+      price: 20
+    },
+    {
+      name: "Cake One",
+      price: 20
+    },
+    {
+      name: "Cake One",
+      price: 20
+    },
+    {
+      name: "Cake One",
+      price: 20
+    },
+    {
+      name: "Cake One",
+      price: 20
+    },
+    {
+      name: "Cake One",
+      price: 20
+    }
+    ]
   }
 ]
 
@@ -28,14 +171,17 @@ const CategoryScreen = ({navigation, route}) => {
 
   const {name, email} = route.params
 
-  const catCardHandler = () => {
-    navigation.navigate('ProductList')
+  const catCardHandler = (list, title) => {
+    navigation.navigate('ProductList', {
+      title: title,
+      productList: list
+    })
   }
 
   return (
     <SafeAreaView style={styles.container}>
+    <HeaderComponent navigation={navigation} icon="menu" title="Category" />
       <View style={styles.content}>
-
         <View style={styles.profileContainer}>
           <Image
             style={styles.profileImg}
@@ -47,11 +193,12 @@ const CategoryScreen = ({navigation, route}) => {
         </View>
         <FlatList
           numColumns={2}
+          //style={{margin: 10}}
           data={catArr}
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity onPress={() => {
-                  catCardHandler()
+                  catCardHandler(item.prodList, item.title)
               }} style={styles.card}>
                 <Image style={styles.cardImg} source={item.image} />
                 <Text style={styles.cardTitleText}>{item.title}</Text>
@@ -60,8 +207,6 @@ const CategoryScreen = ({navigation, route}) => {
           }}
           keyExtractor={(item, index) => index.toString()}
         />
-
-
       </View>
     </SafeAreaView>
   )

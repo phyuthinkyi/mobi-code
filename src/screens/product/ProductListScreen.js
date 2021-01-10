@@ -2,14 +2,16 @@ import React from 'react'
 import {SafeAreaView, View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet} from 'react-native'
 import color from '../../constants/color'
 import size from '../../constants/size'
+import HeaderComponent from '../../components/HeaderComponent'
 
 const prodListArr = [
   {
   name: "Product One",
-  price: 20
+  price: 20,
+  detailDesc: "something paragraph"
 },
 {
-  name: "Product One",
+  name: "Product Tow",
   price: 20
 },
 {
@@ -40,19 +42,22 @@ const prodListArr = [
 
 const ProductListScreen = ({navigation, route}) => {
 
-  const cardHandler = () => {
-    navigation.navigate("ProductDetail")
+  const cardHandler = (name) => {
+    navigation.navigate("ProductDetail", {
+      name: name
+    })
   }
 
   return(
     <SafeAreaView style={{flex: 1}}>
+    <HeaderComponent navigation={navigation}  icon="back" title={route.params.title} />
     <View style={{flex: 1}}>
         <FlatList 
-          data={prodListArr}
+          data={route.params.productList}
           renderItem={({item, index}) => {
             return(
               <TouchableOpacity onPress={() => {
-                cardHandler()
+                cardHandler(item.name)
               }} style={styles.card}>
                 <Text style={styles.cardName}>{item.name}</Text>
                 <Text style={styles.cardPrice}>{item.price}</Text>

@@ -8,13 +8,15 @@ const LoginScreen = ({ navigation, route }) => {
   const [pass, setPass] = useState('')
 
   const loginHandler = () => {
+    if (name != ''  || email != '' || pass != '') {
+      navigation.navigate('Category', {
+        name: name,
+        email: email
+      })
+    }
     setName('')
     setEmail('')
     setPass('')
-    navigation.navigate('Category', {
-      name: name,
-      email: email
-    })
   }
 
   const forgotHandler = () => {

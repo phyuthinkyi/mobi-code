@@ -2,15 +2,18 @@ import React from 'react'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Image, Dimensions, StyleSheet, ScrollView } from 'react-native'
 import color from '../../constants/color'
 import size from '../../constants/size'
+import HeaderComponent from '../../components/HeaderComponent'
 
 const width = Dimensions.get('screen').width
 
 const ProductDetailScreen = ({ navigation, route }) => {
+  console.log("Detail Route Data", route)
   return (
     <SafeAreaView style={styles.container}>
+    <HeaderComponent navigation={navigation} icon="back" title="Product Detail" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
-          <Text style={styles.title}>Title</Text>
+          <Text style={styles.title}>{route.params.name}</Text>
           <View style={styles.imgContainer}>
             <View style={styles.imgFlxContainer}>
               <Image resizeMode="contain" style={styles.img} source={require('../../../assets/image.jpg')} />
