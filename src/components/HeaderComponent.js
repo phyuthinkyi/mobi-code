@@ -7,7 +7,7 @@ const HeaderComponent = ({ navigation, icon, title }) => {
   return (
     <View style={styles.headerContainer}>
       { icon == "menu" ?
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {navigation.toggleDrawer()}}>
           <Image style={styles.menuImg} source={require('../../assets/menu.png')} />
         </TouchableOpacity>
         :

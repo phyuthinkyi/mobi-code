@@ -167,9 +167,8 @@ const catArr = [
 ]
 
 const CategoryScreen = ({navigation, route}) => {
-  console.log("Route Data", route.params)
 
-  const {name, email} = route.params
+  //const {name, email} = route.params
 
   const catCardHandler = (list, title) => {
     navigation.navigate('ProductList', {
@@ -187,8 +186,8 @@ const CategoryScreen = ({navigation, route}) => {
             style={styles.profileImg}
             source={require('../../../assets/profile.png')} />
           <View style={styles.profileInfo}>
-            <Text style={styles.profileText}>{name}</Text>
-            <Text style={styles.profileText}>{email}</Text>
+            <Text style={styles.profileText}>Name</Text>
+            <Text style={styles.profileText}>Email</Text>
           </View>
         </View>
         <FlatList
@@ -198,6 +197,7 @@ const CategoryScreen = ({navigation, route}) => {
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity onPress={() => {
+                console.log("Something")
                   catCardHandler(item.prodList, item.title)
               }} style={styles.card}>
                 <Image style={styles.cardImg} source={item.image} />
