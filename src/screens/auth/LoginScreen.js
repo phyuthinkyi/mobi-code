@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native'
 import color from '../../constants/color'
 import size from '../../constants/size'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 const LoginScreen = ({ navigation, route }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -9,10 +11,16 @@ const LoginScreen = ({ navigation, route }) => {
 
   const loginHandler = () => {
     if (name != ''  || email != '' || pass != '') {
-      navigation.navigate('Category', {
-        name: name,
-        email: email
+      let user = {
+        userName: name,
+        userEmail: email,
+        userPass: pass
+      }
+      AsyncStorage.setItem('user', JSON.stringify(user))
+      .then(res => {
+        navigation.navigate('Drawer')
       })
+      .catch((e) => console.log(e))
     }
     setName('')
     setEmail('')

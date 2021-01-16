@@ -1,8 +1,9 @@
-import React from 'react'
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Image, Dimensions} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Image, Dimensions } from 'react-native'
 import color from '../../constants/color'
 import size from '../../constants/size'
 import HeaderComponent from '../../components/HeaderComponent'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const width = Dimensions.get('screen').width
 const catArr = [
@@ -11,38 +12,38 @@ const catArr = [
     title: 'Coffee',
     prodList: [
       {
-      name: "COFFEE One",
-      price: 20,
-      detailDesc: "something paragraph"
-    },
-    {
-      name: "COFFEE Tow",
-      price: 20
-    },
-    {
-      name: "COFFEE One",
-      price: 20
-    },
-    {
-      name: "COFFEE One",
-      price: 20
-    },
-    {
-      name: "COFFEE One",
-      price: 20
-    },
-    {
-      name: "COFFEE One",
-      price: 20
-    },
-    {
-      name: "COFFEE One",
-      price: 20
-    },
-    {
-      name: "COFFEE One",
-      price: 20
-    }
+        name: "COFFEE One",
+        price: 20,
+        detailDesc: "something paragraph"
+      },
+      {
+        name: "COFFEE Tow",
+        price: 20
+      },
+      {
+        name: "COFFEE One",
+        price: 20
+      },
+      {
+        name: "COFFEE One",
+        price: 20
+      },
+      {
+        name: "COFFEE One",
+        price: 20
+      },
+      {
+        name: "COFFEE One",
+        price: 20
+      },
+      {
+        name: "COFFEE One",
+        price: 20
+      },
+      {
+        name: "COFFEE One",
+        price: 20
+      }
     ]
 
   },
@@ -51,78 +52,78 @@ const catArr = [
     title: 'Burger',
     prodList: [
       {
-      name: "Burger One",
-      price: 20,
-      detailDesc: "something paragraph"
-    },
-    {
-      name: "Burger Tow",
-      price: 20
-    },
-    {
-      name: "Burger One",
-      price: 20
-    },
-    {
-      name: "Burger One",
-      price: 20
-    },
-    {
-      name: "Burger One",
-      price: 20
-    },
-    {
-      name: "Burger One",
-      price: 20
-    },
-    {
-      name: "Burger One",
-      price: 20
-    },
-    {
-      name: "Burger One",
-      price: 20
-    }
+        name: "Burger One",
+        price: 20,
+        detailDesc: "something paragraph"
+      },
+      {
+        name: "Burger Tow",
+        price: 20
+      },
+      {
+        name: "Burger One",
+        price: 20
+      },
+      {
+        name: "Burger One",
+        price: 20
+      },
+      {
+        name: "Burger One",
+        price: 20
+      },
+      {
+        name: "Burger One",
+        price: 20
+      },
+      {
+        name: "Burger One",
+        price: 20
+      },
+      {
+        name: "Burger One",
+        price: 20
+      }
     ]
-    
+
   },
   {
     image: require('../../../assets/fries.png'),
     title: 'Fires',
     prodList: [
       {
-      name: "Fries One",
-      price: 20,
-      detailDesc: "something paragraph"
-    },
-    {
-      name: "Fries Tow",
-      price: 20
-    },
-    {
-      name: "Fries One",
-      price: 20
-    },
-    {
-      name: "Fries One",
-      price: 20
-    },
-    {
-      name: "Fries One",
-      price: 20
-    },
-    {
-      name: "Fries One",
-      price: 20
-    },
-    {
-      name: "Fries One",
-      price: 20
-    },
-    {
-      name: "COFFEE One",
-      price: 20
-    }
+        name: "Fries One",
+        price: 20,
+        detailDesc: "something paragraph"
+      },
+      {
+        name: "Fries Tow",
+        price: 20
+      },
+      {
+        name: "Fries One",
+        price: 20
+      },
+      {
+        name: "Fries One",
+        price: 20
+      },
+      {
+        name: "Fries One",
+        price: 20
+      },
+      {
+        name: "Fries One",
+        price: 20
+      },
+      {
+        name: "Fries One",
+        price: 20
+      },
+      {
+        name: "COFFEE One",
+        price: 20
+      }
     ]
   },
   {
@@ -130,45 +131,62 @@ const catArr = [
     title: 'Cakes',
     prodList: [
       {
-      name: "Cake One",
-      price: 20,
-      detailDesc: "something paragraph"
-    },
-    {
-      name: "Cake Tow",
-      price: 20
-    },
-    {
-      name: "Cake One",
-      price: 20
-    },
-    {
-      name: "Cake One",
-      price: 20
-    },
-    {
-      name: "Cake One",
-      price: 20
-    },
-    {
-      name: "Cake One",
-      price: 20
-    },
-    {
-      name: "Cake One",
-      price: 20
-    },
-    {
-      name: "Cake One",
-      price: 20
-    }
+        name: "Cake One",
+        price: 20,
+        detailDesc: "something paragraph"
+      },
+      {
+        name: "Cake Tow",
+        price: 20
+      },
+      {
+        name: "Cake One",
+        price: 20
+      },
+      {
+        name: "Cake One",
+        price: 20
+      },
+      {
+        name: "Cake One",
+        price: 20
+      },
+      {
+        name: "Cake One",
+        price: 20
+      },
+      {
+        name: "Cake One",
+        price: 20
+      },
+      {
+        name: "Cake One",
+        price: 20
+      }
     ]
   }
 ]
 
-const CategoryScreen = ({navigation, route}) => {
+const CategoryScreen = ({ navigation, route }) => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  useEffect(() => {
+    // async function getUserData() {
+    //   let userData = await AsyncStorage.getItem('user')
+    //   setName(userData.userName)
+    //   setEmail(userData.userEmail)
+    // }
+    // getUserData()
 
-  //const {name, email} = route.params
+    AsyncStorage.getItem('user')
+      .then(data => {
+        const userData = JSON.parse(data)
+        console.log("user Data", userData)
+        setName(userData.userName)
+        setEmail(userData.userEmail)
+      })
+      .catch((e) => console.log(e))
+  }, [])
 
   const catCardHandler = (list, title) => {
     navigation.navigate('ProductList', {
@@ -179,15 +197,15 @@ const CategoryScreen = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <HeaderComponent navigation={navigation} icon="menu" title="Category" />
+      <HeaderComponent navigation={navigation} icon="menu" title="Category" />
       <View style={styles.content}>
         <View style={styles.profileContainer}>
           <Image
             style={styles.profileImg}
             source={require('../../../assets/profile.png')} />
           <View style={styles.profileInfo}>
-            <Text style={styles.profileText}>Name</Text>
-            <Text style={styles.profileText}>Email</Text>
+            <Text style={styles.profileText}>{name}</Text>
+            <Text style={styles.profileText}>{email}</Text>
           </View>
         </View>
         <FlatList
@@ -198,7 +216,7 @@ const CategoryScreen = ({navigation, route}) => {
             return (
               <TouchableOpacity onPress={() => {
                 console.log("Something")
-                  catCardHandler(item.prodList, item.title)
+                catCardHandler(item.prodList, item.title)
               }} style={styles.card}>
                 <Image style={styles.cardImg} source={item.image} />
                 <Text style={styles.cardTitleText}>{item.title}</Text>
@@ -221,18 +239,19 @@ const styles = StyleSheet.create({
   profileImg: { width: 60, height: 60 },
   profileInfo: { flex: 1, marginLeft: 10 },
   profileText: { color: color.white, fontSize: size.mediumTextSize, fontWeight: 'bold' },
-  card: {backgroundColor: color.white, 
-    width: width/2 - 20 , 
-    height: width/2 - 30, 
-    margin: 10, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+  card: {
+    backgroundColor: color.white,
+    width: width / 2 - 20,
+    height: width / 2 - 30,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     shadowColor: color.black,
     shadowRadius: 10,
     elevation: 5
-   },
-   cardImg: {width: 45, height: 45},
-   cardTitleText: {marginTop: 10, color: color.primary, fontSize: size.largeTextSize, fontWeight: 'bold'},
+  },
+  cardImg: { width: 45, height: 45 },
+  cardTitleText: { marginTop: 10, color: color.primary, fontSize: size.largeTextSize, fontWeight: 'bold' },
 
 })
