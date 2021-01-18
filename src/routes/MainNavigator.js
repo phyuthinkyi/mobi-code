@@ -1,7 +1,9 @@
 import React from 'react'
+import {Image} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import LoginScreen from '../screens/auth/LoginScreen'
 import CategoryScreen from '../screens/product/CategoryScreen'
@@ -19,6 +21,7 @@ import CustomDrawerMenu from './CustomDrawerMenu'
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
+const Tab = createBottomTabNavigator()
 
 const CategoryNavigator = () => {
   return (
@@ -64,21 +67,52 @@ const CustomDrawerContent = (props) => {
   )
 }
 
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let img;
+          switch(route.name){
+            case "Home" : 
+            img = <Image style={{width: 25, height: 25, tintColor: focused ? '#0E5D96' : '#e5e5e5'}} source={require('../../assets/home.png')} />
+            break
+
+            case "Order" :
+            img = <Image style={{width: 25, height: 25, tintColor: focused ? '#0E5D96' : '#e5e5e5'}} source={require('../../assets/heart.png')} />
+            break
+
+            case "Profile" :
+            img = <Image style={{width: 25, height: 25, tintColor: focused ? '#0E5D96' : '#e5e5e5'}} source={require('../../assets/user.png')} />
+            break
+          }
+          return img
+        }
+      })}
+      tabBarOptions={{
+        activeTintColor: '#0E5D96',
+        inactiveTintColor: 'gray'
+      }}
+      initialRouteName="Home"
+    >
+      <Tab.Screen name="Home" component={CategoryNavigator} />
+      <Tab.Screen name="Order" component={OrderNavigator} />
+      <Tab.Screen name="Profile" component={ProfileNavigator} />
+    </Tab.Navigator>
+  )
+}
+
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
+      screenOptions={{ headerShown: false }}
       drawerContent={(props) => CustomDrawerContent(props)}
-      initialRouteName="Category"
-      screenOptions={{
-        headerShown: false
-      }}>
-      <Drawer.Screen name="Home" component={CategoryNavigator} />
-      <Drawer.Screen name="Order" component={OrderNavigator} />
-      <Drawer.Screen name="Profile" component={ProfileNavigator} />
+    >
+      <Drawer.Screen name="Tab" component={TabNavigator} />
     </Drawer.Navigator>
   )
 }
-// npm install @react-native-async-storage/async-storage
+
 const MainNavigator = () => {
   return (
     <NavigationContainer>
